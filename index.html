@@ -1,64 +1,89 @@
 <html>
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Web AR</title>
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script type='text/javascript'
-        src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
-    <script type='text/javascript'
-        src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
-    <script type='module' src='dist/bundle.js'></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="X-UA-Compatible" content="ie=edge">
+  <title>Face Filter with MindAR</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
 </head>
-
 <body style="margin: 0; overflow: hidden;">
 
-    <a-scene vr-mode-ui="enabled: false" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'>
+  <a-scene 
+    mindar-face
+    embedded
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <!-- Camera setup -->
+    <a-camera active="false" position="0 0 0"></a-camera>
 
-        <!--change src destination to the object file of what you want to show on screen-->
-        <a-asset-item id="obsv" src="AR/Memory Market/flower_obervatory_small.glb"></a-asset-item>
-        <a-asset-item id="boat" src="AR/Memory Market/boat_small.glb"></a-asset-item>
-        <a-asset-item id="mcd" src="AR/Memory Market/mcdonalds.glb"></a-asset-item>
-        <a-asset-item id="seamen" src="AR/Memory Market/seamenclub_small.glb"></a-asset-item>
-        <a-asset-item id="post" src="AR/Memory Market/postoff.glb"></a-asset-item>
-        <a-asset-item id="train" src="AR/Memory Market/train.glb"></a-asset-item>
+    <!-- Face target: Example models -->
+    
+    <!-- Model 1: Boat attached to the nose -->
+    <a-entity mindar-face-target="anchorIndex: 1">
+      <a-entity 
+        gltf-model="AR/Memory Market/boat_small.glb"
+        scale="0.1 0.1 0.1"
+        position="0 0 -0.2"
+        rotation="0 0 0"
+      ></a-entity>
+    </a-entity>
 
+    <!-- Model 2: Flower Observatory on the forehead -->
+    <a-entity mindar-face-target="anchorIndex: 9">
+      <a-entity 
+        gltf-model="AR/Memory Market/flower_obervatory_small.glb"
+        scale="0.2 0.2 0.2"
+        position="0 0.1 -0.1"
+        rotation="0 0 0"
+      ></a-entity>
+    </a-entity>
 
-        
-        <!--This is the fixed object version (where the object would not move at all and always stay on screen)-->
-        <a-camera>
-             <!--<a-entity gltf-model="#obsv" scale="0.23 0.23 0.23" rotation="0 90 0" position="0.35 -1.3 -5"></a-entity>-->
-            <!--<a-entity gltf-model="#boat" scale="1.5 1.5 1.5" rotation="0 45 0" position="0.35 -1.3 -5"></a-entity>-->
-            <!--<a-entity gltf-model="#mcd" scale="1 1 1" rotation="0 0 0" position="-2 -1.3 -5"></a-entity>-->
-            <!--<a-entity gltf-model="#seamen" scale="0.5 0.5 0.5" rotation="0 -90 0" position="0 -6.3 -10"></a-entity>-->
-            <!--<a-entity gltf-model="#train" scale="0.5 0.5 0.5" rotation="0 -90 0" position="0 -0.4 -6"></a-entity>-->
-            <!--<a-entity gltf-model="#post" scale="1.2 1.2 1.2" rotation="0 -90 0" position="0 0 -20"></a-entity>-->
-        </a-camera>
+    <!-- Model 3: Train near the cheek -->
+    <a-entity mindar-face-target="anchorIndex: 210">
+      <a-entity 
+        gltf-model="AR/Memory Market/train.glb"
+        scale="0.15 0.15 0.15"
+        position="0.1 -0.05 0.2"
+        rotation="0 90 0"
+      ></a-entity>
+    </a-entity>
 
+    <!-- Model 4: McDonald's logo on the chin -->
+    <a-entity mindar-face-target="anchorIndex: 5">
+      <a-entity 
+        gltf-model="AR/Memory Market/mcdonalds.glb"
+        scale="0.1 0.1 0.1"
+        position="0 -0.2 0.1"
+        rotation="0 0 0"
+      ></a-entity>
+    </a-entity>
 
+    <!-- Model 5: Post Office building on the side of the face -->
+    <a-entity mindar-face-target="anchorIndex: 234">
+      <a-entity 
+        gltf-model="AR/Memory Market/postoff.glb"
+        scale="0.2 0.2 0.2"
+        position="0.2 0 0.1"
+        rotation="0 -90 0"
+      ></a-entity>
+    </a-entity>
 
-        <!--These are the non-fixed object version (object appears on screen, but can go off screen when camera moves)-->
-        <!--<a-entity gltf-model="#obsv" scale="0.23 0.23 0.23" rotation="0 90 0" position="0.35 0 -5"></a-entity>-->
-        <a-entity gltf-model="#boat" scale="0.5 0.5 0.5" rotation="0 45 0" position="0.35 0 -5"></a-entity>
-        <!--<a-entity gltf-model="#mcd" scale="1 1 1" rotation="0 0 0" position="-2 0 -5"></a-entity>-->
-        <!--<a-entity gltf-model="#seamen" scale="0.5 0.5 0.5" rotation="0 -90 0" position="0 -5 -10"></a-entity>-->
-        <!--<a-entity gltf-model="#post" scale="0.5 0.5 0.5" rotation="0 -90 0" position="-7 -5 -20"></a-entity>-->
-        
+    <!-- Model 6: Seamen Club on the forehead -->
+    <a-entity mindar-face-target="anchorIndex: 168">
+      <a-entity 
+        gltf-model="AR/Memory Market/seamenclub_small.glb"
+        scale="0.1 0.1 0.1"
+        position="0 0.3 0"
+        rotation="0 0 0"
+      ></a-entity>
+    </a-entity>
 
+  </a-scene>
 
-
-
-
-    </a-scene>
-
-
-
-
-    <script src="script.js"></script>
 </body>
-
 </html>
